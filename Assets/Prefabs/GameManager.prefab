@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8903565322744796802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2276191139873657112}
+  - component: {fileID: 1145948209224744706}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2276191139873657112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903565322744796802}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.09610796, y: 4.2310696, z: 0.5566716}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1145948209224744706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903565322744796802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f6fd85cb8bec74aad351bf4032d581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinDistance: 90
+  coinAngle2D: 30
+  coinAngle3D: 20
+  playerStartPosition: {x: 0, y: 1, z: 0}
+  startCoinSpawnPosition: {x: 0, y: 2.5, z: 30}
+  selectedTrack: 0
+  Track1Pos: []
+  Track2Pos: []
+  Track3Pos: []
+  Track4Pos: []
+  Track5Pos: []
+  Track6Pos: []
+  <CurrentGameState>k__BackingField: 0
+  <CurrentGoldCoinNumber>k__BackingField: 0
+  <CurrentTrack>k__BackingField:
+    coinPositions: []
+  <DataCoins>k__BackingField: []
+  broomController: {fileID: 0}
+  goldCoinPrefab: {fileID: 0}
+  missCoinZonePrefab: {fileID: 0}
+  environment: {fileID: 0}
+  conePrefab: {fileID: 0}
+  sensorLogging: {fileID: 0}
+  traingingGrounObjects: {fileID: 0}
+  _tracks:
+  - coinPositions: []
+  - coinPositions: []
+  - coinPositions: []
+  - coinPositions: []
+  - coinPositions: []
+  - coinPositions: []
