@@ -5,3 +5,10 @@ ShaderIncludeImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 243519
+  packageName: Rocks and Vegetation Pack - URP and Built-In
+  packageVersion: 1.0
+  assetPath: Assets/TerrainSampleAssets/ShaderGraphs/CustomFunctions/CustomLighting.hlsl
+  uploadId: 553804
