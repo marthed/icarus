@@ -16,20 +16,21 @@ public class MechanicPress : MonoBehaviour
     public MechanicPressState mechanicPressState = MechanicPressState.Stopped;
 
     public float readyDuration = 10f;
-    public float smashDuration = 0.5f;
+    public float smashDuration = 1f;
     public float rewindDuration = 20f;
 
     #region private
     private Wall _wallLeft;
     private Wall _wallRight;
-    private AudioSource _audioSource;
     private Vector3 _wallLeftOriginPosition;
     private Vector3 _wallRightOriginPosition;
+    private SoundManager _soundManager;
+
+    private Coroutine _currentCoroutine;
     #endregion
     void Start()
     {
-        _audioSource = GetComponent<AudioSource>();
-
+        _soundManager = GetComponent<SoundManager>();
         Wall[] walls = gameObject.GetComponentsInChildren<Wall>();
         _wallLeft = walls[0];
         _wallRight = walls[1];
@@ -47,26 +48,41 @@ public class MechanicPress : MonoBehaviour
             switch (mechanicPressState)
             {
                 case MechanicPressState.Stopped:
-                    StopAllCoroutines();
+                    if (_currentCoroutine != null)
+                    {
+                        StopCoroutine(_currentCoroutine);
+                    }
                     yield return new WaitForSeconds(5);
                     break;
                 case MechanicPressState.Ready:
-                    StopAllCoroutines();
-                    StartCoroutine(Ready());
-                    yield return new WaitForSeconds(3);
+                    if (_currentCoroutine != null)
+                    {
+                        StopCoroutine(_currentCoroutine);
+                    }
+                    _currentCoroutine = StartCoroutine(Ready());
+                    yield return _currentCoroutine;
                     mechanicPressState = MechanicPressState.Smash;
+                    yield return new WaitForSeconds(1);
                     break;
                 case MechanicPressState.Smash:
-                    StopAllCoroutines();
-                    StartCoroutine(Smash());
-                    yield return new WaitForSeconds(5);
+                    if (_currentCoroutine != null)
+                    {
+                        StopCoroutine(_currentCoroutine);
+                    }
+                    _currentCoroutine = StartCoroutine(Smash());
+                    yield return _currentCoroutine;
                     mechanicPressState = MechanicPressState.Rewind;
+                    yield return new WaitForSeconds(2);
                     break;
                 case MechanicPressState.Rewind:
-                    StopAllCoroutines();
-                    StartCoroutine(Rewind());
-                    yield return new WaitForSeconds(3);
+                    if (_currentCoroutine != null)
+                    {
+                        StopCoroutine(_currentCoroutine);
+                    }
+                    _currentCoroutine = StartCoroutine(Rewind());
+                    yield return _currentCoroutine;
                     mechanicPressState = MechanicPressState.Ready;
+                    yield return new WaitForSeconds(3);
                     break;
             }
         }
@@ -79,9 +95,9 @@ public class MechanicPress : MonoBehaviour
         Debug.Log("Ready");
         // Play ready sounds (clu-clunk clu-clunk clu-clunk)
 
-        float initialAmplitude = 5f; // Initial amplitude of the pendulum
-        float frequency = 1f; // Frequency of the oscillation
-        float dampingFactor = 0.1f; // Damping factor to reduce the amplitude over time
+        float initialAmplitude = 1f; // Initial amplitude of the pendulum
+        float frequency = 20f; // Frequency of the oscillation
+        float dampingFactor = 1f; // Damping factor to reduce the amplitude over time
 
 
         float elapsedTime = 0f; // Time elapsed since the start
@@ -93,13 +109,14 @@ public class MechanicPress : MonoBehaviour
             float amplitude = initialAmplitude * Mathf.Exp(-dampingFactor * elapsedTime);
 
             float xOffset = amplitude * Mathf.Sin(frequency * elapsedTime);
+            float xOffsetRight = -1 * xOffset;
 
             _wallLeft.transform.position = new Vector3(_wallLeftOriginPosition.x + xOffset, _wallLeftOriginPosition.y, _wallLeftOriginPosition.z);
-            _wallRight.transform.position = new Vector3(_wallRightOriginPosition.x + xOffset, _wallRightOriginPosition.y, _wallRightOriginPosition.z);
+            _wallRight.transform.position = new Vector3(_wallRightOriginPosition.x + xOffsetRight, _wallRightOriginPosition.y, _wallRightOriginPosition.z);
 
             yield return null;
         }
-
+        Debug.Log("Ready Finished");
         _wallLeft.transform.position = _wallLeftOriginPosition;
         _wallRight.transform.position = _wallRightOriginPosition;
 
@@ -118,12 +135,13 @@ public class MechanicPress : MonoBehaviour
 
         while (elapsedTime < smashDuration)
         {
+            elapsedTime += Time.deltaTime;
             float t = elapsedTime / smashDuration;
             _wallLeft.transform.position = Vector3.Lerp(_wallLeftOriginPosition, leftEndPosition, t);
-            _wallRight.transform.position = Vector3.Lerp(rightEndPosition, rightEndPosition, t);
+            _wallRight.transform.position = Vector3.Lerp(_wallRightOriginPosition, rightEndPosition, t);
             yield return null;
         }
-
+        Debug.Log("Smash finished");
 
         // Play Smash sound;
 
@@ -144,11 +162,16 @@ public class MechanicPress : MonoBehaviour
 
         while (elapsedTime < rewindDuration)
         {
-            float t = elapsedTime / smashDuration;
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / rewindDuration;
             _wallLeft.transform.position = Vector3.Lerp(leftStart, leftEndPosition, t);
             _wallRight.transform.position = Vector3.Lerp(rightStart, rightEndPosition, t);
             yield return null;
         }
+
+        // Play finish sound
+
+        Debug.Log("Rewind Finished");
 
     }
 
