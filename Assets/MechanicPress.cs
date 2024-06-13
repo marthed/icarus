@@ -16,9 +16,9 @@ public class MechanicPress : MonoBehaviour
 
     public MechanicPressState mechanicPressState = MechanicPressState.Stopped;
 
-    public float readyDuration = 10f;
-    public float smashDuration = 1f;
-    public float rewindDuration = 20f;
+    public float readyDuration = 5f;
+    public float smashDuration = 0.5f;
+    public float rewindDuration = 20;
 
     public AudioClip[] audioClips;
 
@@ -87,7 +87,7 @@ public class MechanicPress : MonoBehaviour
                     _currentCoroutine = StartCoroutine(Rewind());
                     yield return _currentCoroutine;
                     mechanicPressState = MechanicPressState.Ready;
-                    yield return new WaitForSeconds(3);
+                    yield return new WaitForSeconds(2);
                     break;
             }
         }
@@ -136,6 +136,7 @@ public class MechanicPress : MonoBehaviour
         // If user is in smash position: Init death scene with scream sound
         _audioSource.loop = false;
         PlaySound(1);
+        yield return new WaitForSeconds(2);
         float elapsedTime = 0;
 
         Vector3 leftEndPosition = new Vector3(-4, _wallLeftOriginPosition.y, _wallLeftOriginPosition.z);

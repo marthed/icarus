@@ -3,19 +3,20 @@ using UnityEngine;
 public class DeathSceneControls : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public GameObject player;
+    private GameObject _player;
 
     public float speed = 0.001f;
     void Start()
     {
+        _player = GameObject.Find("Player");
         if (InfoBoard.Instance.IsMenuOpen())
         {
             InfoBoard.Instance.ToggleMenu();
-            player.GetComponentInChildren<CustomRayInteractor>().ToggleRayInteractor();
+            _player.GetComponentInChildren<CustomRayInteractor>().ToggleRayInteractor();
         }
-        player.GetComponent<BroomController>().enabled = false;
+        _player.GetComponent<BroomController>().enabled = false;
 
-        Camera camera = player.GetComponentInChildren<Camera>();
+        Camera camera = _player.GetComponentInChildren<Camera>();
         camera.clearFlags = CameraClearFlags.SolidColor;
         camera.backgroundColor = Color.black;
 
@@ -24,9 +25,9 @@ public class DeathSceneControls : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player.transform.position.z < 150)
+        if (_player.transform.position.z < 150)
         {
-            player.transform.position = player.transform.position + new Vector3(0, 0, speed);
+            _player.transform.position = _player.transform.position + new Vector3(0, 0, speed);
         }
     }
 
