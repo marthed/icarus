@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
 
 public enum MechanicPressState
 {
@@ -19,6 +20,10 @@ public class MechanicPress : MonoBehaviour
     public float smashDuration = 1f;
     public float rewindDuration = 20f;
 
+    public AudioClip[] audioClips;
+
+    private AudioSource _audioSource;
+
     #region private
     private Wall _wallLeft;
     private Wall _wallRight;
@@ -30,7 +35,7 @@ public class MechanicPress : MonoBehaviour
     #endregion
     void Start()
     {
-        _soundManager = GetComponent<SoundManager>();
+        _audioSource = GetComponent<AudioSource>();
         Wall[] walls = gameObject.GetComponentsInChildren<Wall>();
         _wallLeft = walls[0];
         _wallRight = walls[1];
@@ -94,6 +99,8 @@ public class MechanicPress : MonoBehaviour
 
         Debug.Log("Ready");
         // Play ready sounds (clu-clunk clu-clunk clu-clunk)
+        _audioSource.loop = false;
+        PlaySound(0);
 
         float initialAmplitude = 1f; // Initial amplitude of the pendulum
         float frequency = 20f; // Frequency of the oscillation
@@ -127,11 +134,12 @@ public class MechanicPress : MonoBehaviour
         Debug.Log("Smash");
         // Play swooth sound
         // If user is in smash position: Init death scene with scream sound
-
+        _audioSource.loop = false;
+        PlaySound(1);
         float elapsedTime = 0;
 
-        Vector3 leftEndPosition = new Vector3(-4, 0, 0);
-        Vector3 rightEndPosition = new Vector3(4, 0, 0);
+        Vector3 leftEndPosition = new Vector3(-4, _wallLeftOriginPosition.y, _wallLeftOriginPosition.z);
+        Vector3 rightEndPosition = new Vector3(4, _wallRightOriginPosition.y, _wallRightOriginPosition.z);
 
         while (elapsedTime < smashDuration)
         {
@@ -151,7 +159,9 @@ public class MechanicPress : MonoBehaviour
     {
         Debug.Log("Rewind");
         // Play rewind sound;
-
+        _audioSource.loop = true;
+        PlaySound(2);
+        
         float elapsedTime = 0;
 
         Vector3 leftStart = _wallLeft.transform.position;
@@ -168,11 +178,25 @@ public class MechanicPress : MonoBehaviour
             _wallRight.transform.position = Vector3.Lerp(rightStart, rightEndPosition, t);
             yield return null;
         }
-
+        _audioSource.loop= false;
+        _audioSource.Stop();
         // Play finish sound
 
         Debug.Log("Rewind Finished");
 
+    }
+
+    public void PlaySound(int index)
+    {
+        if (index >= 0 && index < audioClips.Length)
+        {
+            _audioSource.clip = audioClips[index];
+            _audioSource.Play();
+        }
+        else
+        {
+            Debug.Log("Invalid Audioclip");
+        }
     }
 
 
