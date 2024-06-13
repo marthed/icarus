@@ -44,7 +44,7 @@ public class statemachine : MonoBehaviour
             }
         }
         if (timeCount > 50.0f){ //STATE 3 transition to whiteroom
-            SceneManager.LoadScene("WhiteRoom", LoadSceneMode.Single);
+            SceneManager.LoadScene("Death", LoadSceneMode.Single);
         }
     }
 }
