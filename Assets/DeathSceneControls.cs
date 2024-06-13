@@ -5,6 +5,8 @@ public class DeathSceneControls : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private GameObject _player;
 
+    public MechanicPress mechanicPress;
+
     public float speed = 0.001f;
     void Start()
     {
@@ -28,6 +30,11 @@ public class DeathSceneControls : MonoBehaviour
         if (_player.transform.position.z < 150)
         {
             _player.transform.position = _player.transform.position + new Vector3(0, 0, speed);
+        }
+        if (mechanicPress.numberOfSmash == 2)
+        {
+            mechanicPress.StopAllCoroutines();
+            mechanicPress.HideWalls();
         }
     }
 

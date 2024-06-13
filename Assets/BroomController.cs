@@ -96,6 +96,7 @@ public class BroomController : MonoBehaviour
 
     private InputAction _rightControllerRotation;
     private Vector3 _offset;
+    private AudioSource _audioSource;
 
     #endregion
 
@@ -371,6 +372,7 @@ public class BroomController : MonoBehaviour
             return Vector3.zero;
         }
     }
+
 
     float GetAngle(Quaternion inputLocalOrientation, RotationAxis axis) {
         if (axis == RotationAxis.Yaw) {

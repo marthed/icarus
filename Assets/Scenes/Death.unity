@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e586c29e4ff8d1446b172088052908c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1853370153}
+  mechanicPress: {fileID: 1387153927}
   speed: 0.05
 --- !u!4 &350257964
 Transform:
@@ -438,12 +438,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mechanicPressState: 1
   readyDuration: 10
-  smashDuration: 0.5
+  smashDuration: 0.3
   rewindDuration: 20
   audioClips:
   - {fileID: 8300000, guid: 22bfe4e991bb94c3c989a5d5bed0de9b, type: 3}
   - {fileID: 8300000, guid: 862918c517be644a983008f561ae5d39, type: 3}
   - {fileID: 8300000, guid: c17b4c8baf87040bfba4be5388443d01, type: 3}
+  numberOfSmash: 0
 --- !u!4 &1387153928
 Transform:
   m_ObjectHideFlags: 0
@@ -679,12 +680,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762692956}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1853370153 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5195663961991369612, guid: 6cc8d171c5e114807bc5adea1e5dbaff,
-    type: 3}
-  m_PrefabInstance: {fileID: 2021442264}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2021442264
 PrefabInstance:
   m_ObjectHideFlags: 0
