@@ -37,6 +37,8 @@ public class BroomController : MonoBehaviour
     [Tooltip("If true, previous locomotion is used to compute current locomoton")]
     public bool usePrevious = true;
 
+ 
+
 
     public SpeedMethod selectedSpeedMethod = SpeedMethod.ControllerMethod;
 

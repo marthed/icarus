@@ -75,6 +75,11 @@ public class InfoBoard : Singleton<InfoBoard>
     }
 
 
+    public bool IsMenuOpen()
+    {
+        return _canvasGameObject.activeSelf;
+    }
+
 
     public void ToggleMenu() {
         Debug.Log("Toggle Menu");
