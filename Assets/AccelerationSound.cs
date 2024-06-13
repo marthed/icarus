@@ -20,30 +20,24 @@ public class AccelerationSound : MonoBehaviour
 
     }
 
-    float maxAcc = 0;
 
     // Update is called once per frame
     void FixedUpdate()
     {
         float acceleration = ((_rb.linearVelocity - previousVelocity) / Time.fixedDeltaTime).magnitude;
 
-        if (acceleration > maxAcc)
-        {
-            maxAcc = acceleration;
-        }
+        float scaledVelocity = _rb.linearVelocity.magnitude / 40; // 40 is approx Max speed
 
-        float scaled = acceleration / 30;
+        float scaledAccleration = acceleration / 30; // 30 is approx max acceleration
 
         float scaledPitch = acceleration / 10;
-        Debug.Log(maxAcc);
 
-
-        _audioSource.volume = Mathf.Max(scaled, 0.16f);
+        _audioSource.volume = Mathf.Max(scaledVelocity * scaledAccleration, 0.16f);
         _audioSource.pitch = Mathf.Clamp(scaledPitch, 0, 3);
 
 
 
         previousVelocity = _rb.linearVelocity;
-        
+
     }
 }
