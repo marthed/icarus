@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 1387153928}
   - component: {fileID: 1387153927}
   - component: {fileID: 1387153929}
-  - component: {fileID: 1387153930}
+  - component: {fileID: 1387153931}
   m_Layer: 0
   m_Name: Mechanic Press
   m_TagString: Untagged
@@ -558,7 +558,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1387153930
+--- !u!114 &1387153931
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1387153926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e3402c15dbfec54db6cfccecbfa6bbb, type: 3}
+  m_Script: {fileID: 11500000, guid: cd8283483659d6549b00c88dfa3a6e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timeCount: 0

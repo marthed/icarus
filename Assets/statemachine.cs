@@ -8,6 +8,7 @@ public class statemachine : MonoBehaviour
     public AudioSource meadowSound;
     public AudioSource doomSound;
     public bool enableTimer;
+    public GameObject target;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,7 +29,7 @@ public class statemachine : MonoBehaviour
         if (timeCount < 20.0f){ //STATE 1 beginnig
 
         }
-        if (timeCount > 20.0f && timeCount < 40.0f){ //STATE 2 doom
+        if (timeCount > 20.0f && timeCount < 45.0f){ //STATE 2 doom
             if (envLight.colorTemperature > 1500) {
                 meadowSound.Stop();
                 if(!doomSound.isPlaying){
@@ -39,12 +40,14 @@ public class statemachine : MonoBehaviour
             else {
                 envLight.intensity = envLight.intensity - 0.02f;
                 if (RenderSettings.fogEndDistance > 1){
-                    RenderSettings.fogEndDistance = RenderSettings.fogEndDistance - 1;
+                    RenderSettings.fogEndDistance = RenderSettings.fogEndDistance - 2;
                 }
             }
         }
         if (timeCount > 50.0f){ //STATE 3 transition to whiteroom
             SceneManager.LoadScene("Death", LoadSceneMode.Single);
         }
+        float distance = Vector3.Distance (transform.position, target.transform.position);//
+        Debug.Log(distance);
     }
 }
