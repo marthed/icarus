@@ -6,6 +6,7 @@ using ControllerMethodClasses;
 using UnityEditor;
 using TextMappings;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public enum SteeringMethod
 {
@@ -103,6 +104,7 @@ public class BroomController : MonoBehaviour
     public Camera head;
     public Transform localReference;
     public InputActionAsset actions;
+    public Transform rightHand;
 
     #region  "private"
 
@@ -246,6 +248,11 @@ public class BroomController : MonoBehaviour
 
     void SetHorizontalMovement()
     {
+        if (selectedSteeringMethod == SteeringMethod.LeaningMethod)
+        {
+            // Horizontal handled by physical rotations
+            return;
+        }
         InputMode inputMode = _steeringMethod.HorizontalInputMode;
         InputSource inputSource = _steeringMethod.HorizontalInputSource;
         RotationAxis axis = _steeringMethod.HorizontaltAxis;
@@ -292,6 +299,8 @@ public class BroomController : MonoBehaviour
         OutputMode outputMode = _steeringMethod.LateralOutputMode;
         Vector3 outputAxis = transform.right;
 
+        return;
+
         float value;
 
         if (inputMode == InputMode.Angle)
@@ -320,6 +329,12 @@ public class BroomController : MonoBehaviour
         }
 
         value = (float)invertLateral * value;
+
+       // Vector3 axis = outputAxis;
+
+        //if ()
+
+        //axis = new Vector3(0, 0, _rightControllerRotation.ReadValue<Quaternion>().eulerAngles.z).normalized;
 
         //Vector3 newAxis = new Vector3(0, _rightControllerRotation.ReadValue<Quaternion>().eulerAngles.y, 0).normalized;
 
@@ -370,11 +385,13 @@ public class BroomController : MonoBehaviour
     {
 
         float rawInput = 0;
+        Vector3 axis;
 
         if (selectedSpeedMethod == SpeedMethod.ControllerMethod)
         {
             //rawInput = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger);
             rawInput = _allowMovement.ReadValue<float>();
+            axis = rightHand.forward; // Output of forward is forward axis of controller
 
         }
         else if (selectedSpeedMethod == SpeedMethod.ControllerHeadMethod)
@@ -383,22 +400,33 @@ public class BroomController : MonoBehaviour
             Vector3 headPosition = GetInputPosition(InputSource.Head);
 
             rawInput = Mathf.Clamp(1.2f - (headPosition - controllerPosition).magnitude, 0, 1);
+            axis = transform.forward;
         }
         else
         {
-            Vector3 controllerPosition = GetInputPosition(InputSource.Controller);
-            rawInput = GetDistance(controllerPosition, RotationAxis.Roll);
+            Vector3 headPosition = GetInputPosition(InputSource.Head);
+
+
+            //axis = new Vector3(0, 0, _rightControllerRotation.ReadValue<Quaternion>().eulerAngles.z).normalized; // Output of forward is forward axis of controller
+            axis = new Vector3(rightHand.forward.x, 0, rightHand.forward.z).normalized;
+
+
+            //rawInput = GetDistance(headPosition, RotationAxis.Roll);
+            rawInput = _allowMovement.ReadValue<float>();
+
         }
 
         rawInput = (float)invertForward * rawInput;
 
+        Debug.Log(axis);
+
         if (usePrevious)
         {
-            Translate(rawInput, transform.forward, _speedMethod.usePreviousAmplification);
+            Translate(rawInput, axis, _speedMethod.usePreviousAmplification);
         }
         else
         {
-            Translate(rawInput, transform.forward, _speedMethod.amplification);
+            Translate(rawInput, axis, _speedMethod.amplification);
         }
     }
     void TranslateOrRotate(OutputMode outputMode, Vector3 outputAxis, float value, float sensitivity)
@@ -481,8 +509,8 @@ public class BroomController : MonoBehaviour
 
         if (axis == RotationAxis.Yaw)
         {
-            Debug.Log("localReference position: " + _offset.y);
-            Debug.Log("input localPosition: " + inputLocalPosition.z);
+            //Debug.Log("localReference position: " + _offset.y);
+            //Debug.Log("input localPosition: " + inputLocalPosition.z);
             return inputLocalPosition.y - _offset.y;
         }
         else if (axis == RotationAxis.Pitch)
@@ -491,6 +519,11 @@ public class BroomController : MonoBehaviour
         }
         else if (axis == RotationAxis.Roll)
         {
+            if (selectedSteeringMethod == SteeringMethod.LeaningMethod)
+            {
+
+                return new Vector3(inputLocalPosition.x, 0, inputLocalPosition.z).magnitude - new Vector3(_offset.x, 0, _offset.z).magnitude;
+            }
 
             return inputLocalPosition.z - localReference.localPosition.z;
         }
