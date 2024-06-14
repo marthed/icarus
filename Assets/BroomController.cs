@@ -228,7 +228,7 @@ public class BroomController : MonoBehaviour
 
         if (allowMovement)
         {
-            SetHorizontalMovement();
+            //SetHorizontalMovement();
             SetLateralMovement();
             SetVerticalMovement();
             SetForwardMovement();
@@ -297,9 +297,8 @@ public class BroomController : MonoBehaviour
         InputSource inputSource = _steeringMethod.LateralInputSource;
         RotationAxis axis = _steeringMethod.LateralAxis;
         OutputMode outputMode = _steeringMethod.LateralOutputMode;
-        Vector3 outputAxis = transform.right;
+        Vector3 outputAxis;
 
-        return;
 
         float value;
 
@@ -307,11 +306,20 @@ public class BroomController : MonoBehaviour
         {
             Quaternion input = GetInputOrientation(inputSource);
             value = GetAngle(input, axis);
+            outputAxis = transform.right;
         }
         else if (inputMode == InputMode.Distance)
         {
             Vector3 input = GetInputPosition(inputSource);
             value = GetDistance(input, axis);
+            if (selectedSteeringMethod == SteeringMethod.LeaningMethod)
+            {
+                outputAxis = new Vector3(rightHand.right.x, 0, rightHand.right.z).normalized;
+            }
+            else
+            {
+                outputAxis = transform.right;
+            }
         }
         else
         {
@@ -337,6 +345,7 @@ public class BroomController : MonoBehaviour
         //axis = new Vector3(0, 0, _rightControllerRotation.ReadValue<Quaternion>().eulerAngles.z).normalized;
 
         //Vector3 newAxis = new Vector3(0, _rightControllerRotation.ReadValue<Quaternion>().eulerAngles.y, 0).normalized;
+
 
         TranslateOrRotate(outputMode, outputAxis, value, sensitivity);
 
@@ -516,22 +525,46 @@ public class BroomController : MonoBehaviour
         }
         else if (axis == RotationAxis.Pitch)
         {
+            if (selectedSteeringMethod == SteeringMethod.LeaningMethod)
+            {
+                Vector2 rightHandPosition = new Vector3(rightHand.localPosition.x, rightHand.localPosition.z);
+                Vector2 originPosition = new Vector3(_offset.x, _offset.z);
+                Vector2 headPosition = new Vector3(head.transform.localPosition.x, head.transform.localPosition.z);
+
+                Vector2 distance = headPosition - originPosition;
+                Vector2 distanceToController = (rightHandPosition - originPosition).normalized;
+                Vector2 rotatedDistanceToController = new Vector2(distanceToController.y, -distanceToController.x);
+
+                float dotProduct = Vector2.Dot(distance, rotatedDistanceToController);
+                float magnitudeSquared = Vector2.Dot(rotatedDistanceToController, rotatedDistanceToController);
+
+                Vector2 projection = (dotProduct / magnitudeSquared) * rotatedDistanceToController;
+
+                float projectionSign = Mathf.Sign(dotProduct);
+
+                return projectionSign * projection.magnitude;
+            }
+
             return inputLocalPosition.x - localReference.localPosition.x;
         }
         else if (axis == RotationAxis.Roll)
         {
             if (selectedSteeringMethod == SteeringMethod.LeaningMethod)
             {
-                Vector3 rightHandPosition = new Vector3(rightHand.localPosition.x, 0, rightHand.localPosition.z);
-                Vector3 originPosition = new Vector3(_offset.x, 0, _offset.z);
-                Vector3 headPosition = new Vector3(head.transform.localPosition.x, 0, head.transform.localPosition.z);
+                Vector2 rightHandPosition = new Vector3(rightHand.localPosition.x, rightHand.localPosition.z);
+                Vector2 originPosition = new Vector3(_offset.x, _offset.z);
+                Vector2 headPosition = new Vector3(head.transform.localPosition.x, head.transform.localPosition.z);
 
-                Vector3 distance = headPosition - originPosition;
+                Vector2 distance = headPosition - originPosition;
+                Vector2 distanceToController = (rightHandPosition - originPosition).normalized;
+
+                float dotProduct = Vector2.Dot(distance, distanceToController);
+                float magnitudeSquared = Vector2.Dot(distanceToController, distanceToController);
+
+                Vector2 projection = (dotProduct / magnitudeSquared) * distanceToController;
 
 
-               // Vector3 distance2 = 
-
-                return distance.magnitude;
+                return projection.magnitude;
             }
 
             return inputLocalPosition.z - localReference.localPosition.z;

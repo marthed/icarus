@@ -10,8 +10,8 @@ public class CustomRayInteractor : MonoBehaviour
     private UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor _rayInteractor;
     void Awake()
     {
-        Debug.Log("HAHAHHSGFYGFYA");
         _rayInteractor = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor>();
+        _rayInteractor.enabled = false;
         
     }
 

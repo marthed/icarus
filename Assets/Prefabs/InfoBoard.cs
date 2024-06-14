@@ -42,6 +42,7 @@ public class InfoBoard : Singleton<InfoBoard>
     void Awake()
     {
         _canvasGameObject = GetComponentInChildren<Canvas>().gameObject;
+        _canvasGameObject.SetActive(false);
 
     }
 
