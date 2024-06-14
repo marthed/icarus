@@ -22,6 +22,7 @@ public class statemachineDeath : MonoBehaviour
         }
         if (timeCount > 52.0f){ //STATE 3 transition to whiteroom
             transitionManager.TransitionToScene("WhiteRoom");//
+            timeCount=0.0f;
         }
     }
 }

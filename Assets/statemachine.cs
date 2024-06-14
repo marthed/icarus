@@ -62,7 +62,7 @@ public class statemachine : MonoBehaviour
                 }
             }
         }
-        if (timeCount > 5.0f){ //STATE 3 transition to whiteroom
+        if (timeCount > 70.0f){ //STATE 3 transition to whiteroom
             transitionManager.TransitionToScene("Death");
         }
         float distance = Vector3.Distance (transform.position, target.transform.position);//

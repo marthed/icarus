@@ -731,7 +731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 1367116104}
-  fadeDuration: 2
+  fadeDuration: 1
 --- !u!82 &1387153934
 AudioSource:
   m_ObjectHideFlags: 0
@@ -911,6 +911,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 698326633}
     m_Modifications:
+    - target: {fileID: 2518153069100089782, guid: 88e08db735d26f7489c5d9af42f04cbf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662810196076807710, guid: 88e08db735d26f7489c5d9af42f04cbf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3830486260420490781, guid: 88e08db735d26f7489c5d9af42f04cbf,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1005,6 +1015,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2518153069100089782, guid: 88e08db735d26f7489c5d9af42f04cbf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662810196076807710, guid: 88e08db735d26f7489c5d9af42f04cbf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3830486260420490781, guid: 88e08db735d26f7489c5d9af42f04cbf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1203,7 +1223,12 @@ PrefabInstance:
     - target: {fileID: 2518153069100089782, guid: 88e08db735d26f7489c5d9af42f04cbf,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662810196076807710, guid: 88e08db735d26f7489c5d9af42f04cbf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3830486260420490781, guid: 88e08db735d26f7489c5d9af42f04cbf,
         type: 3}
