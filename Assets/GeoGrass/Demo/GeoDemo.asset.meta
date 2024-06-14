@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4ceca285c27250746bc6439a6c6620a5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 15600000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 202496
+  packageName: Geo Grass - Auto Terrain Material
+  packageVersion: 1.0
+  assetPath: Assets/GeoGrass/Demo/GeoDemo.asset
+  uploadId: 451499

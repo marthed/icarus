@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 57647e8e13484ba488e0a5677de2e5d9
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 202496
+  packageName: Geo Grass - Auto Terrain Material
+  packageVersion: 1.0
+  assetPath: Assets/GeoGrass/Shaders/LayeredGeo.hlsl
+  uploadId: 451499

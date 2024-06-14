@@ -122,8 +122,8 @@ TextureImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 213198
-  packageName: Unity Terrain - HDRP Demo Scene
-  packageVersion: 1.0.2
+  productId: 145808
+  packageName: Terrain Sample Asset Pack
+  packageVersion: 2.0.1
   assetPath: Assets/TerrainSampleAssets/Textures/Details/Grass_C_Normal.tif
-  uploadId: 531742
+  uploadId: 511657
