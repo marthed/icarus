@@ -75,9 +75,9 @@ Material:
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
     - _ExcludeFromTUAndAA: 0
-    - _FoamAmount: -6
-    - _FoamCutoff: 0.8
-    - _FoamScale: 1
+    - _FoamAmount: 4.04
+    - _FoamCutoff: 0.99
+    - _FoamScale: 3.67
     - _FoamSpeed: 0.03
     - _MaterialID: 1
     - _MaterialTypeMask: 2
@@ -91,9 +91,9 @@ Material:
     - _RefractionModel: 0
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
-    - _RippleDensity: 290.44
-    - _RippleSlimness: 9.2
-    - _RippleSpeed: 1.8
+    - _RippleDensity: 905.4
+    - _RippleSlimness: 16.1
+    - _RippleSpeed: 1
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 8
