@@ -7,6 +7,7 @@ using UnityEditor;
 using TextMappings;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 
 public enum SteeringMethod
 {
@@ -42,6 +43,11 @@ public class BroomController : MonoBehaviour
     public bool usePrevious = true;
 
     public bool allowMovement = false;
+
+    public float sensitivity = 1f;
+
+    public float verticalSensitivity = 1f;
+
 
 
     public SpeedMethod selectedSpeedMethod = SpeedMethod.ControllerMethod;
@@ -116,6 +122,7 @@ public class BroomController : MonoBehaviour
 
     private InputAction _rightControllerRotation;
     private Vector3 _offset;
+    private Vector3 _rightHandOffset;
     private AudioSource _audioSource;
 
     #endregion
@@ -242,6 +249,8 @@ public class BroomController : MonoBehaviour
         }
     }
 
+    Vector3 previousPosHead = new Vector3 (0, 0, 0);
+
     void FixedUpdate()
     {
 
@@ -250,9 +259,26 @@ public class BroomController : MonoBehaviour
         if (allowMovement)
         {
             //SetHorizontalMovement();
-            SetLateralMovement();
-            SetVerticalMovement();
-            SetForwardMovement();
+            //SetLateralMovement();
+            // SetVerticalMovement();
+            //SetForwardMovement();
+            Vector3 leaning = head.transform.localPosition - _offset;
+            Vector3 leaningNoVert = new Vector3(leaning.x, 0, leaning.z);
+
+
+            float magnitude = leaningNoVert.magnitude;
+
+            float magnitudeVert = leaning.y;
+
+            Vector3 vert = rightHand.localPosition - _rightHandOffset;
+            float vertMag = vert.y;
+
+
+            Translate(magnitude, leaningNoVert, sensitivity, false);
+            Translate(vertMag, transform.up, verticalSensitivity, true);
+
+
+
 
         }
         else if (_setOffset.IsPressed())
@@ -260,6 +286,7 @@ public class BroomController : MonoBehaviour
             // OVRInput.Get(OffsetButton)
             Debug.Log("Set offset");
             _offset = head.transform.localPosition - localReference.localPosition;
+            _rightHandOffset = rightHand.localPosition;
         }
 
 
@@ -450,11 +477,11 @@ public class BroomController : MonoBehaviour
 
         if (usePrevious)
         {
-            Translate(rawInput, axis, _speedMethod.usePreviousAmplification);
+            Translate(rawInput, axis, _speedMethod.usePreviousAmplification, false);
         }
         else
         {
-            Translate(rawInput, axis, _speedMethod.amplification);
+            Translate(rawInput, axis, _speedMethod.amplification, false);
         }
     }
     void TranslateOrRotate(OutputMode outputMode, Vector3 outputAxis, float value, float sensitivity)
@@ -466,7 +493,7 @@ public class BroomController : MonoBehaviour
         }
         else
         {
-            Translate(value, outputAxis, sensitivity);
+            Translate(value, outputAxis, sensitivity, false);
         }
     }
 
@@ -610,14 +637,26 @@ public class BroomController : MonoBehaviour
         }
     }
 
-    void Translate(float amount, Vector3 axis, float sensitivity)
+    void Translate(float amount, Vector3 axis, float sensitivity, bool combine)
     {
 
         float frameScalar = 70 * Time.fixedDeltaTime;
 
         if (usePrevious)
         {
-            gameObject.GetComponent<Rigidbody>().AddForce(amount * sensitivity * frameScalar * axis);
+
+            if (combine)
+            {
+                gameObject.GetComponent<Rigidbody>().linearVelocity += amount * sensitivity * frameScalar * axis;
+            }
+            else
+            {
+                gameObject.GetComponent<Rigidbody>().linearVelocity = amount * sensitivity * frameScalar * axis;
+            }
+
+
+
+
         }
         else
         {

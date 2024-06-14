@@ -7,7 +7,7 @@ public class AccelerationSound : MonoBehaviour
 
     private Rigidbody _rb;
 
-    private Vector3 previousVelocity;
+    private Vector3 previousPosition;
     void Start()
     {
 
@@ -15,29 +15,32 @@ public class AccelerationSound : MonoBehaviour
 
         _rb = GetComponent<Rigidbody>();
 
-        previousVelocity = _rb.linearVelocity;
+        previousPosition = new Vector3(0, 0, 0);
 
 
     }
 
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        float acceleration = ((_rb.linearVelocity - previousVelocity) / Time.fixedDeltaTime).magnitude;
+        Vector3 currentVelocity = transform.position - previousPosition;
+        //float acceleration = ((_rb.linearVelocity - previousVelocity) / Time.fixedDeltaTime).magnitude;
 
-        float scaledVelocity = _rb.linearVelocity.magnitude / 40; // 40 is approx Max speed
+        //float scaledVelocity = _rb.linearVelocity.magnitude / 40; // 40 is approx Max speed
 
-        float scaledAccleration = acceleration / 30; // 30 is approx max acceleration
+        //float scaledAccleration = acceleration / 30; // 30 is approx max acceleration
 
-        float scaledPitch = acceleration / 10;
-
-        _audioSource.volume = Mathf.Max(scaledVelocity * scaledAccleration, 0.16f);
-        _audioSource.pitch = Mathf.Clamp(scaledPitch, 0, 3);
+        //float scaledPitch = acceleration / 10;
 
 
 
-        previousVelocity = _rb.linearVelocity;
+        _audioSource.volume = Mathf.Max(currentVelocity.magnitude / 50, 0.16f);
+        _audioSource.pitch = Mathf.Clamp(currentVelocity.magnitude / 50, 0, 3);
+
+
+
+        previousPosition = transform.position;
 
     }
 }
