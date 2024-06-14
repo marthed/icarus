@@ -110,6 +110,7 @@ public class BroomController : MonoBehaviour
 
     private InputAction _allowMovement;
     private InputAction _setOffset;
+    private InputAction _locomotionIsActive;
 
     private InputAction _rightControllerPosition;
 
@@ -138,7 +139,27 @@ public class BroomController : MonoBehaviour
         _rightControllerPosition = actions.FindActionMap("XRI RightHand").FindAction("Position");
         _rightControllerRotation = actions.FindActionMap("XRI RightHand").FindAction("Rotation");
 
+
+
         InfoBoard.Instance.FollowMe(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        _locomotionIsActive = actions.FindActionMap("XRI RightHand Interaction").FindAction("Toggle Locomotion");
+        _locomotionIsActive.performed += ToggleLocomotion;
+        Debug.Log("shdfiushdfiudsf");
+    }
+
+    private void OnDisable()
+    {
+        _locomotionIsActive.performed -= ToggleLocomotion;
+    }
+
+    public void ToggleLocomotion(InputAction.CallbackContext context)
+    {
+        Debug.Log("aLLOW LOCOMOTION");
+        allowMovement = !allowMovement;
     }
 
     public void UseControllerSpeed()
