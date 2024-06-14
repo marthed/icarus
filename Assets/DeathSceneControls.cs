@@ -20,7 +20,7 @@ public class DeathSceneControls : MonoBehaviour
 
         Camera camera = _player.GetComponentInChildren<Camera>();
         camera.clearFlags = CameraClearFlags.SolidColor;
-        camera.backgroundColor = Color.black;
+        camera.backgroundColor = Color.grey;
 
         
     }
