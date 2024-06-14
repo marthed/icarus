@@ -41,7 +41,7 @@ public class BroomController : MonoBehaviour
     [Tooltip("If true, previous locomotion is used to compute current locomoton")]
     public bool usePrevious = true;
 
-
+    public bool allowMovement = false;
 
 
     public SpeedMethod selectedSpeedMethod = SpeedMethod.ControllerMethod;
@@ -226,7 +226,7 @@ public class BroomController : MonoBehaviour
 
         // OVRInput.Get(OVRInput.Button.One
 
-        if (_allowMovement.IsPressed())
+        if (allowMovement)
         {
             SetHorizontalMovement();
             SetLateralMovement();
@@ -411,14 +411,12 @@ public class BroomController : MonoBehaviour
             axis = new Vector3(rightHand.forward.x, 0, rightHand.forward.z).normalized;
 
 
-            //rawInput = GetDistance(headPosition, RotationAxis.Roll);
-            rawInput = _allowMovement.ReadValue<float>();
+           rawInput = GetDistance(headPosition, RotationAxis.Roll);
 
         }
 
         rawInput = (float)invertForward * rawInput;
 
-        Debug.Log(axis);
 
         if (usePrevious)
         {
@@ -511,7 +509,10 @@ public class BroomController : MonoBehaviour
         {
             //Debug.Log("localReference position: " + _offset.y);
             //Debug.Log("input localPosition: " + inputLocalPosition.z);
-            return inputLocalPosition.y - _offset.y;
+            float diff = inputLocalPosition.y - _offset.y;
+            float sign = Mathf.Sign(diff);
+            Debug.Log(diff);
+            return sign * ( (sign + diff) * (sign + diff));
         }
         else if (axis == RotationAxis.Pitch)
         {
@@ -521,8 +522,16 @@ public class BroomController : MonoBehaviour
         {
             if (selectedSteeringMethod == SteeringMethod.LeaningMethod)
             {
+                Vector3 rightHandPosition = new Vector3(rightHand.localPosition.x, 0, rightHand.localPosition.z);
+                Vector3 originPosition = new Vector3(_offset.x, 0, _offset.z);
+                Vector3 headPosition = new Vector3(head.transform.localPosition.x, 0, head.transform.localPosition.z);
 
-                return new Vector3(inputLocalPosition.x, 0, inputLocalPosition.z).magnitude - new Vector3(_offset.x, 0, _offset.z).magnitude;
+                Vector3 distance = headPosition - originPosition;
+
+
+               // Vector3 distance2 = 
+
+                return distance.magnitude;
             }
 
             return inputLocalPosition.z - localReference.localPosition.z;
