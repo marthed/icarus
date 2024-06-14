@@ -24,6 +24,8 @@ public class MechanicPress : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    public int numberOfSmash = 0;
+
     #region private
     private Wall _wallLeft;
     private Wall _wallRight;
@@ -150,6 +152,7 @@ public class MechanicPress : MonoBehaviour
             _wallRight.transform.position = Vector3.Lerp(_wallRightOriginPosition, rightEndPosition, t);
             yield return null;
         }
+        numberOfSmash += 1;
         Debug.Log("Smash finished");
 
         // Play Smash sound;
@@ -198,6 +201,12 @@ public class MechanicPress : MonoBehaviour
         {
             Debug.Log("Invalid Audioclip");
         }
+    }
+
+    public void HideWalls()
+    {
+        _wallLeft.enabled = false;
+        _wallRight.enabled = false;
     }
 
 

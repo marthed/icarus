@@ -1268,7 +1268,7 @@
                     "name": "Select",
                     "type": "Button",
                     "id": "ac96c10b-c955-4a46-8e67-bf16bc069b53",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1286,7 +1286,7 @@
                     "name": "Activate",
                     "type": "Button",
                     "id": "41976d89-60de-4deb-bff9-16b4af96b290",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1304,7 +1304,7 @@
                     "name": "UI Press",
                     "type": "Button",
                     "id": "65174b45-c2ee-4f90-93bb-fb4084eaaab3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1340,7 +1340,7 @@
                     "name": "Menu",
                     "type": "Button",
                     "id": "340c65b9-af6b-448d-a0be-f7f5af3522e5",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1349,7 +1349,16 @@
                     "name": "Offset",
                     "type": "Button",
                     "id": "ba4047c7-9f0a-4cab-b8b6-95005ccd8d16",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Toggle Locomotion",
+                    "type": "Button",
+                    "id": "f2e1570f-6148-461a-89db-f676098e8adc",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1500,37 +1509,26 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "One Modifier",
-                    "id": "9fb81657-1b57-403b-8581-cc50f3176147",
-                    "path": "OneModifier",
+                    "name": "",
+                    "id": "6f3de441-f45f-4f0b-8774-a3fabec01789",
+                    "path": "<XRController>{RightHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Offset",
-                    "isComposite": true,
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "modifier",
-                    "id": "3ae0e7a3-bfc3-4f72-afdf-05e017f05dfe",
-                    "path": "<XRController>{RightHand}/buttonEast",
+                    "name": "",
+                    "id": "857fde54-fca4-4f99-b05c-305abd4badd5",
+                    "path": "<XRController>{RightHand}/secondaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Offset",
+                    "action": "Toggle Locomotion",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "58a33f78-e1c3-47a8-a926-ceec4942f634",
-                    "path": "<XRController>{RightHand}/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Offset",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 }
             ]
         },
