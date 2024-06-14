@@ -7,6 +7,7 @@ using UnityEditor;
 using TextMappings;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 
 public enum SteeringMethod
 {
@@ -121,7 +122,7 @@ public class BroomController : MonoBehaviour
 
     private InputAction _rightControllerRotation;
     private Vector3 _offset;
-    //private Vector3 _rightHandOffset;
+    private Vector3 _rightHandOffset;
     private AudioSource _audioSource;
 
     #endregion
@@ -269,9 +270,12 @@ public class BroomController : MonoBehaviour
 
             float magnitudeVert = leaning.y;
 
+            Vector3 vert = rightHand.localPosition - _rightHandOffset;
+            float vertMag = vert.y;
+
 
             Translate(magnitude, leaningNoVert, sensitivity, false);
-            Translate(magnitudeVert, transform.up, verticalSensitivity, true);
+            Translate(vertMag, transform.up, verticalSensitivity, true);
 
 
 
@@ -282,6 +286,7 @@ public class BroomController : MonoBehaviour
             // OVRInput.Get(OffsetButton)
             Debug.Log("Set offset");
             _offset = head.transform.localPosition - localReference.localPosition;
+            _rightHandOffset = rightHand.localPosition;
         }
 
 
