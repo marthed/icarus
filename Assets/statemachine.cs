@@ -8,6 +8,7 @@ public class statemachine : MonoBehaviour
     public AudioSource meadowSound;
     public AudioSource doomSound;
     public AudioSource woobwoob;
+    public AudioSource niceMusic;
     public bool enableTimer;
     public GameObject target;
     public GameObject halfsphere1;
@@ -28,7 +29,12 @@ public class statemachine : MonoBehaviour
         //if (!mistActivated && player.transform.localPosition.y){
 
         //}
-
+        //if (gameObject.GetComponent<Rigidbody>().linearVelocity > 10 && transform.position.y > 30) {
+        //    mist.SetActive(true);
+        //}
+        //else {
+          //  mist.SetActive(false);
+        //}
 
 
         if (Input.GetKeyDown("space"))
@@ -47,6 +53,8 @@ public class statemachine : MonoBehaviour
             halfsphere2.SetActive(true);
             if (envLight.colorTemperature > 1500) {
                 meadowSound.Stop();
+                niceMusic.volume = 0.1f;
+                
                 if(!doomSound.isPlaying){
                     doomSound.Play();
                 }
@@ -64,6 +72,7 @@ public class statemachine : MonoBehaviour
         }
         if (timeCount > 70.0f){ //STATE 3 transition to whiteroom
             transitionManager.TransitionToScene("Death");
+            timeCount=0;
         }
         float distance = Vector3.Distance (transform.position, target.transform.position);//
         Debug.Log(distance);

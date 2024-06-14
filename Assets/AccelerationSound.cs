@@ -3,7 +3,7 @@ using UnityEngine;
 public class AccelerationSound : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private AudioSource _audioSource;
+    public AudioSource _audioSource;
 
     private Rigidbody _rb;
 
@@ -11,7 +11,6 @@ public class AccelerationSound : MonoBehaviour
     void Start()
     {
 
-        _audioSource = GetComponent<AudioSource>();
 
         _rb = GetComponent<Rigidbody>();
 

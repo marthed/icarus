@@ -7,7 +7,7 @@ using UnityEditor;
 using TextMappings;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
+//using UnityEditor.ShaderGraph.Internal;
 
 public enum SteeringMethod
 {
