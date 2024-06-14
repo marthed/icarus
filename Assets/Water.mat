@@ -76,7 +76,7 @@ Material:
     - _EnableFogOnTransparent: 1
     - _ExcludeFromTUAndAA: 0
     - _FoamAmount: 4.04
-    - _FoamCutoff: 0.8
+    - _FoamCutoff: 0.99
     - _FoamScale: 3.67
     - _FoamSpeed: 0.03
     - _MaterialID: 1
