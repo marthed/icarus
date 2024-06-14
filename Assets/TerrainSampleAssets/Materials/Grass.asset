@@ -28,7 +28,6 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHATEST_ON
   - _DISABLE_DECALS
   - _DISABLE_SSR
   - _DISABLE_SSR_TRANSPARENT
@@ -40,7 +39,6 @@ Material:
   m_CustomRenderQueue: 2450
   stringTagMap:
     MotionVector: User
-    RenderType: TransparentCutout
   disabledShaderPasses:
   - MOTIONVECTORS
   - TransparentDepthPrepass
@@ -82,6 +80,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - Texture2D_E1B0D043:
         m_Texture: {fileID: 2800000, guid: 9bf68c6e5059e7549b60e91ca11987a6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2DLOD_4ce76fe7821749c5a93282810d6e42f2_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 02fd33ef9ed967d4aa71fb7beaf2e4df, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Thickness_Map:
@@ -159,11 +161,16 @@ Material:
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 1
     - _DstBlend: 0
+    - _DstBlend2: 0
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
+    - _ExcludeFromTUAndAA: 0
     - _FadeBias: 0.01
     - _ForceForwardEmissive: 0
+    - _MaterialID: 5
+    - _MaterialTypeMask: 32
     - _OpaqueCullMode: 2
+    - _PerPixelSorting: 0
     - _QueueControl: 1
     - _QueueOffset: 0
     - _RayTracing: 0
@@ -187,6 +194,7 @@ Material:
     - _SupportDecals: 0
     - _Surface: 0
     - _SurfaceType: 0
+    - _TransmissionEnable: 1
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
     - _TransparentDepthPostpassEnable: 0
@@ -220,3 +228,4 @@ Material:
     - _Subsurface_Scattering_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Thickness_Remap: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
